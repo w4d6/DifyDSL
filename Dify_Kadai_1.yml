@@ -1,0 +1,371 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Dify_Kadai_1
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.1.3@74a18ba86ecea3cd6e37eae1a34829691556470d514169abd6a0bcbebecb8fa3
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1744784374015-source-1744798021179-target
+      selected: false
+      source: '1744784374015'
+      sourceHandle: source
+      target: '1744798021179'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1744798021179-source-1744798045346-target
+      selected: false
+      source: '1744798021179'
+      sourceHandle: source
+      target: '1744798045346'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: llm
+      id: 1744798045346-source-17447980596830-target
+      selected: false
+      source: '1744798045346'
+      sourceHandle: source
+      target: '17447980596830'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 17447980596830-source-answer-target
+      selected: false
+      source: '17447980596830'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables: []
+      height: 54
+      id: '1744784374015'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 'あなたのリクエストはこちら
+
+          {{#sys.query#}}
+
+
+          こちらがプロンプトリストです
+
+          {{#17447980596830.text#}}'
+        desc: ''
+        selected: true
+        title: 回答
+        type: answer
+        variables: []
+      height: 138
+      id: answer
+      position:
+        x: 664.5743415887772
+        y: 230.72196835690852
+      positionAbsolute:
+        x: 664.5743415887772
+        y: 230.72196835690852
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 78bb5a0a-7769-4457-88f9-5a166c30683d
+          role: system
+          text: '**input**のキャラクターリクエストを受け取り、その外見・設定を詳細に補完してください。
+
+            - 抽象的な情報（例：「クールで無愛想な女の子」）や、
+
+            - 部分的な描写（例：「金髪碧眼のコンビニ店員」）のみであっても、
+
+            具体的な **ビジュアル情報（髪型・髪色・瞳色・服装・年齢感・体型・人種・雰囲気）** を網羅すること。
+
+
+            ## 入力例：
+
+            金髪碧眼のコンビニ店員
+
+
+            ## 出力例：
+
+            - 年齢：18〜20歳の若い女性
+
+            - 髪型：長いストレート、サイドに軽くレイヤー、前髪ぱっつん
+
+            - 髪色：黄金に近い明るい金髪
+
+            - 目の色：明るい水色（ライトブルー）
+
+            - 肌：白く透き通るような肌
+
+            - 表情：無愛想でやや警戒した目つき
+
+            - 服装：コンビニの制服（青と白のシャツ、名札付き）、タイトなスカート、黒いパンスト
+
+            - 雰囲気：冷たそうに見えるが、どこか憂いを含んだ雰囲気
+
+
+            ## input
+
+            {{#sys.query#}}'
+        selected: false
+        title: キャラ設計
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1744798021179'
+      position:
+        x: 385.69335436860734
+        y: 54.624350042452335
+      positionAbsolute:
+        x: 385.69335436860734
+        y: 54.624350042452335
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 144f70dd-a503-40c7-8bb2-4e50936cc5c0
+          role: system
+          text: '**input**のキャラクター設定をもとに、Stable Diffusionで一貫したビジュアルが生成されるように、
+
+            **ポジティブプロンプト（プロンプト）** を作成してください。
+
+
+            - 明確なパーツ（髪型、髪色、服装など）をSDに適した英語表現で記述してください。
+
+            - タグスタイルを基本とし、LoRAなども含めた指定は行いません。
+
+
+            ## 入力例：
+
+            - 髪型：long straight hair, front bangs
+
+            - 髪色：golden blonde
+
+            - 瞳色：light blue
+
+            - 肌：pale skin
+
+            - 服装：convenience store uniform, blue and white shirt, name tag
+
+            - 雰囲気：cool, slightly melancholy
+
+
+            ## 出力例：
+
+            prompt: "a beautiful young woman, long straight golden blonde hair, light
+            blue eyes, pale skin, wearing a convenience store uniform, blue and white
+            shirt, name tag, cool expression, standing, full body, anime style"
+
+
+            ## input
+
+            {{#1744798021179.text#}}'
+        selected: false
+        title: SD用プロンプトに変換
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1744798045346'
+      position:
+        x: 373.6933543686077
+        y: 190.62435004245214
+      positionAbsolute:
+        x: 373.6933543686077
+        y: 190.62435004245214
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 235ee26c-a658-4392-a1e5-d62903ea4dd1
+          role: system
+          text: '**input**のStable Diffusionプロンプト（処理２の出力）をベースに、キャラクターの設定を完全に維持しつつ、
+
+            # 「表情」「アングル」「ポーズ」などの差分をつけたプロンプトを5パターン出力してください。
+
+            # 毎回ベースプロンプトのすべてを明示的に再利用してください。 "same character" のような略称は使わないでください。
+
+
+            ## 入力プロンプト（例）：
+
+            "a beautiful young woman, long straight golden blonde hair, light blue
+            eyes, pale skin, wearing a convenience store uniform, blue and white shirt,
+            name tag, cool expression, standing, full body, anime style"
+
+
+            ## 出力例：
+
+            1. "a beautiful young woman, long straight golden blonde hair, light blue
+            eyes, pale skin, wearing a convenience store uniform, blue and white shirt,
+            name tag, angry expression, leaning forward on counter, anime style"
+
+            2. "a beautiful young woman, long straight golden blonde hair, light blue
+            eyes, pale skin, wearing a convenience store uniform, blue and white shirt,
+            name tag, smiling gently, upper body only, side angle, anime style"
+
+            3. "a beautiful young woman, long straight golden blonde hair, light blue
+            eyes, pale skin, wearing a convenience store uniform, blue and white shirt,
+            name tag, sleepy expression, bird''s eye view, crouching while organizing
+            shelf, anime style"
+
+            4. "a beautiful young woman, long straight golden blonde hair, light blue
+            eyes, pale skin, wearing a convenience store uniform, blue and white shirt,
+            name tag, disgusted expression, close-up, straight-on view, anime style"
+
+            5. "a beautiful young woman, long straight golden blonde hair, light blue
+            eyes, pale skin, wearing a convenience store uniform, blue and white shirt,
+            name tag, nervous expression, looking up, standing with one hand behind
+            head, anime style"
+
+
+            ## input
+
+            {{#1744798045346.text#}}'
+        selected: false
+        title: 差分プロンプト作成
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '17447980596830'
+      position:
+        x: 373.6933543686077
+        y: 319.1593244964407
+      positionAbsolute:
+        x: 373.6933543686077
+        y: 319.1593244964407
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 72.13317679482091
+      y: 283.61604948563496
+      zoom: 0.37892914162760044
