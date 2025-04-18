@@ -1,0 +1,392 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: kadai2
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.1.3@74a18ba86ecea3cd6e37eae1a34829691556470d514169abd6a0bcbebecb8fa3
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions: []
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - remote_url
+      - local_file
+      enabled: true
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      number_limits: 1
+    opening_statement: テスト用
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - https://picsum.photos/id/237/200/300
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1744973018981-source-1744973233720-target
+      selected: false
+      source: '1744973018981'
+      sourceHandle: source
+      target: '1744973233720'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1744973233720-true-1744973674150-target
+      selected: false
+      source: '1744973233720'
+      sourceHandle: 'true'
+      target: '1744973674150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: llm
+      id: 1744973674150-source-1744974363675-target
+      source: '1744973674150'
+      sourceHandle: source
+      target: '1744974363675'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1744974363675-source-answer-target
+      source: '1744974363675'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1744973233720-false-1744974744601-target
+      source: '1744973233720'
+      sourceHandle: 'false'
+      target: '1744974744601'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1744974744601-source-1744974762017-target
+      source: '1744974744601'
+      sourceHandle: source
+      target: '1744974762017'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 開始
+        type: start
+        variables: []
+      height: 54
+      id: '1744973018981'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744974363675.text#}}'
+        desc: ''
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 1342.547807571618
+        y: 489.1323490034288
+      positionAbsolute:
+        x: 1342.547807571618
+        y: 489.1323490034288
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 386b9e79-d878-4787-8c31-025fe30013cc
+            value: http
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 126
+      id: '1744973233720'
+      position:
+        x: 441
+        y: 315
+      positionAbsolute:
+        x: 441
+        y: 315
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTPリクエスト
+        type: http-request
+        url: '{{#sys.query#}}'
+        variables: []
+      height: 122
+      id: '1744973674150'
+      position:
+        x: 729
+        y: 501
+      positionAbsolute:
+        x: 729
+        y: 501
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 24c6f5c7-fc36-45da-9185-9b03eff64f50
+          role: system
+          text: 'あなたは、画像生成AI「Stable Diffusion」のプロンプト作成に特化したアシスタントです。ユーザーが提供する画像を解析し、画像の特徴を表す英語のタグをカンマ区切りで出力してください。以下のガイドラインに従ってください
+
+
+            タグ形式: 英語の単語やフレーズをカンマ区切りで列挙してください（例：1girl, long hair, blue eyes, smiling）。
+
+
+            タグの種類: 以下のカテゴリから適切なタグを選択してください：
+
+
+            人物情報: 性別、年齢、体格（例：1girl, young, slim）
+
+
+            外見的特徴: 髪型、髪色、目の色、表情（例：long hair, blonde hair, green eyes, smiling）
+
+
+            衣服・装飾: 服装、アクセサリー（例：school uniform, hat, glasses）
+
+
+            ポーズ・構図: 姿勢、視線、構図（例：sitting, looking at viewer, upper body）
+
+
+            背景・環境: 場所、時間帯、雰囲気（例：classroom, sunset, indoors）
+
+
+            アートスタイル: 画風、技法（例：anime style, digital painting, watercolor）
+
+
+            出力形式: タグはすべて小文字で記述。
+
+
+            出力例: 1girl, long_hair, blue_eyes, smiling, school_uniform, sitting, classroom,
+            anime_style'
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1744973674150'
+            - files
+          enabled: true
+      height: 90
+      id: '1744974363675'
+      position:
+        x: 1033
+        y: 501
+      positionAbsolute:
+        x: 1033
+        y: 501
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: langgenius/gemini/google
+        prompt_template:
+        - id: 01c288d4-50f8-403f-9eef-d06dc210b6e8
+          role: system
+          text: 'あなたは、画像生成AI「Stable Diffusion」のプロンプト作成に特化したアシスタントです。ユーザーが提供する画像を解析し、画像の特徴を表す英語のタグをカンマ区切りで出力してください。以下のガイドラインに従ってください
+
+
+            タグ形式: 英語の単語やフレーズをカンマ区切りで列挙してください（例：1girl, long hair, blue eyes, smiling）。
+
+
+            タグの種類: 以下のカテゴリから適切なタグを選択してください：
+
+
+            人物情報: 性別、年齢、体格（例：1girl, young, slim）
+
+
+            外見的特徴: 髪型、髪色、目の色、表情（例：long hair, blonde hair, green eyes, smiling）
+
+
+            衣服・装飾: 服装、アクセサリー（例：school uniform, hat, glasses）
+
+
+            ポーズ・構図: 姿勢、視線、構図（例：sitting, looking at viewer, upper body）
+
+
+            背景・環境: 場所、時間帯、雰囲気（例：classroom, sunset, indoors）
+
+
+            アートスタイル: 画風、技法（例：anime style, digital painting, watercolor）
+
+
+            出力形式: タグはすべて小文字で記述。
+
+
+            出力例: 1girl, long_hair, blue_eyes, smiling, school_uniform, sitting, classroom,
+            anime_style'
+        selected: false
+        title: LLM 2
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - sys
+            - files
+          enabled: true
+      height: 90
+      id: '1744974744601'
+      position:
+        x: 758.6691274914278
+        y: 295.09179002267456
+      positionAbsolute:
+        x: 758.6691274914278
+        y: 295.09179002267456
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1744974744601.text#}}'
+        desc: ''
+        selected: false
+        title: 回答 2
+        type: answer
+        variables: []
+      height: 104
+      id: '1744974762017'
+      position:
+        x: 1062.6691274914278
+        y: 295.09179002267456
+      positionAbsolute:
+        x: 1062.6691274914278
+        y: 295.09179002267456
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -329.10821477719514
+      y: 158.0487627131303
+      zoom: 0.8281706613345459
